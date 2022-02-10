@@ -78,6 +78,8 @@ int main() {
 	    bst1.getSuccessor(512) << endl;
 	cout << "  successor of 4 is: " <<
 	    bst1.getSuccessor(4) << endl;
+  cout << "  successor of 16 is: " <<
+	    bst1.getSuccessor(16) << endl;
     }
     if(all || testnum == 7) {
 	cout << "  removing 4" << endl;

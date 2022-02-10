@@ -1,3 +1,4 @@
+
 // intbst.cpp
 // Implements class IntBST
 // YOUR NAME(S), DATE
@@ -255,7 +256,15 @@ IntBST::Node* IntBST::getSuccessorNode(int value) const{
     {
       if(!n->right)
       {
-        bool greater = true;
+        return nullptr;
+      }
+
+
+
+    }
+    if(!n->right)
+    {
+        bool greater = false;
         while(n->parent &&!greater)
         {
           n = n->parent;
@@ -270,22 +279,7 @@ IntBST::Node* IntBST::getSuccessorNode(int value) const{
           return nullptr;
         }
         return n;
-      }
-      n = n->right;
-      while(n->left)
-      {
-        n = n->left;
-      }
-      return n;
 
-    }
-    if(!n->right)
-    {
-      if(n->info<root->info)
-      {
-        return n->parent;
-      }
-      return nullptr;
     }
     else
     {
