@@ -298,41 +298,48 @@ bool IntBST::remove(int value){
 
   if (n->parent==nullptr)
   {
-    if(count(n->right)>=count(n->left))
+    if(n->right)
     {
-      if (getSuccessor(value)==n->right->info)
-      {
-        n = n->right;
-        n->parent = nullptr;
-      }
-      else
+      if(n->right->info!=getSuccessor(value))
       {
         Node *a = getSuccessorNode(n->info);
         int inf = a->info;
         root->info = inf;
         delete a;
       }
+      else
+      {
+        Node*a = getSuccessorNode(n->info);
+        a->parent = nullptr;
+        a->left = n->left;
+        root = a;
+
+      }
+      
     }
     else
     {
-      if (getPredecessor(value)==n->left->info)
-      {
-        n = n->left;
-        n->parent = nullptr;
-      }
-      else
+      if(n->left->info!=getSuccessor(value))
       {
         Node *a = getPredecessorNode(n->info);
         int inf = a->info;
         root->info = inf;
         delete a;
       }
+      else
+      {
+        Node*a = getPredecessorNode(n->info);
+        a->parent = nullptr;
+        a->right = n->right;
+        root = a;
+
+      }
 
     }
   }
   else if(n->info < n->parent->info)
   {
-    if (getSuccessor(value)==0)
+    if (getSuccessorNode(value)==nullptr)
     {
       n->parent->left = nullptr;
       return true;
@@ -364,7 +371,7 @@ bool IntBST::remove(int value){
   }
   else
   {
-    if (getPredecessor(value)==0)
+    if (getPredecessorNode(value)==nullptr)
     {
       n->parent->right = nullptr;
       return true;
