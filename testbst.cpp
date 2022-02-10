@@ -65,6 +65,9 @@ int main() {
     if(all || testnum == 6){
 	cout << "  predecessor of 64 is: " <<
 	    bst1.getPredecessor(64) << endl;
+	cout << "  predecessor of 16 is: " <<
+	    bst1.getPredecessor(16) << endl;
+    
 	cout << "  predecessor of 512 is: " <<
 	    bst1.getPredecessor(512) << endl;
 	cout << "  predecessor of 4 is: " <<
