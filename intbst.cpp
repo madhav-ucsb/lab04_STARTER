@@ -330,7 +330,7 @@ bool IntBST::remove(int value){
       {
         Node*a = getPredecessorNode(n->info);
         a->parent = nullptr;
-        a->right = n->right;
+        a->right = n->left;
         root = a;
 
       }
@@ -364,7 +364,7 @@ bool IntBST::remove(int value){
       temp = getSuccessorNode(value);
       temp->parent = n->parent;
 
-      temp->left = n->left;
+      temp->right = n->right;
 
       n->parent->right = temp;
     }
@@ -384,9 +384,12 @@ bool IntBST::remove(int value){
       }
       else
       {
-        Node *temp = n->right;
-        temp->parent = n->parent;
-        n->parent->right = temp;
+        //Node *temp = n->right;
+        //temp->parent = n->parent;
+        n = n->right;
+        n->parent = n->parent->parent;
+        n->parent->right = n;
+        //n->parent->right = temp;
       }
     }
     else
@@ -395,7 +398,7 @@ bool IntBST::remove(int value){
       Node *temp = getPredecessorNode(value);
       temp->parent = n->parent;
 
-      temp->right = n->right;
+      temp->left = n->left;
       n->parent->right = temp;
     }
   }
