@@ -11,6 +11,8 @@ all: ${BINARIES}
 tests: ${BINARIES}
 	./intbst
 	./tesbst
+bstheader: bstheader.o
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
 intbst: intbst.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
 
@@ -19,7 +21,8 @@ testbst: testbst.o intbst.o
 
 intbst.o: intbst.cpp intbst.h
 	${CXX} intbst.cpp -c
-testbst.o: testbst.cpp intbst.h 
+bstheader.o: intbst.h
+testbst.o: testbst.cpp
 	${CXX} testbst.cpp -c
 clean:
 	/bin/rm -f ${BINARIES} *.o
