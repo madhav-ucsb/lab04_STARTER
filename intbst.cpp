@@ -15,6 +15,11 @@ IntBST::IntBST() : root(0) { }
 IntBST::~IntBST() {
     clear(root);
 }
+bool IntBST::empty()
+{
+  return root == nullptr;
+  
+}
 
 // recursive helper for destructor
 void IntBST::clear(Node *n) {
@@ -309,129 +314,266 @@ int IntBST::getSuccessor(int value) const{
 
 // deletes the Node containing the given value from the tree
 // returns true if the node exist and was deleted or false if the node does not exist
-bool IntBST::remove(int value){
 
-  Node *n = getNodeFor(value, root);
+
+int IntBST::min(Node *n)
+{
 
   if(n==nullptr)
   {
-    return false;
+    return 0;
   }
-
-  if (n->parent==nullptr)
+  else if (!n->left)
   {
-    if(n->right)
-    {
-      if(n->right->info!=getSuccessor(value))
-      {
-        Node *a = getSuccessorNode(n->info);
-        int inf = a->info;
-        root->info = inf;
-        delete a;
-      }
-      else
-      {
-        Node*a = getSuccessorNode(n->info);
-        a->parent = nullptr;
-        a->left = n->left;
-        root = a;
-
-      }
-      
-    }
-    else
-    {
-      if(n->left->info!=getSuccessor(value))
-      {
-        Node *a = getPredecessorNode(n->info);
-        int inf = a->info;
-        root->info = inf;
-        delete a;
-      }
-      else
-      {
-        Node*a = getPredecessorNode(n->info);
-        a->parent = nullptr;
-        a->right = n->left;
-        root = a;
-
-      }
-
-    }
-  }
-  else if(n->info < n->parent->info)
-  {
-    if (getSuccessorNode(value)==nullptr)
-    {
-      n->parent->left = nullptr;
-      return true;
-    }
-    else if(getSuccessor(value)==n->parent->info)
-    {
-      if(!n->left)
-      {
-        n->parent->left = nullptr;
-      }
-      else
-      {
-        Node *temp = new Node;
-        temp = n->left;
-        temp->parent = n->parent;
-        n->parent->left = temp;
-      }
-    }
-    else
-    {
-      Node *temp = new Node;
-      temp = getSuccessorNode(value);
-      temp->parent = n->parent;
-
-      temp->right = n->right;
-
-      n->parent->right = temp;
-    }
+    return n->info;
   }
   else
   {
-    if (getPredecessorNode(value)==nullptr)
-    {
-      n->parent->right = nullptr;
-      return true;
-    }
-    else if(getPredecessor(value)==n->parent->info)
-    {
-      if(!n->right)
-      {
-        n->parent->right = nullptr;
-      }
-      else
-      {
-        //Node *temp = n->right;
-        //temp->parent = n->parent;
-        n = n->right;
-        n->parent = n->parent->parent;
-        n->parent->right = n;
-        //n->parent->right = temp;
-      }
-    }
-    else
-    {
-
-      Node *temp = getPredecessorNode(value);
-      temp->parent = n->parent;
-
-      temp->left = n->left;
-      n->parent->right = temp;
-    }
+    return min(n->left);
   }
 
 
+}
+int IntBST::min()
+{
+  return min(root);
+
+
+}
+int IntBST::max(Node *n)
+{
+
+  if(n==nullptr)
+  {
+    return 0;
+  }
+  else if (!n->right)
+  {
+    return n->info;
+  }
+  else
+  {
+    return max(n->right);
+  }
+
+
+}
+
+
+
+int IntBST::max()
+{
+  return max(root);
+  
+}
+void IntBST::remove(Node* &root, int value)
+{
+    // base case: the key is not found in the tree
+    if (root == nullptr) {
+        return;
+    }
+ 
+    // if the given key is less than the root node, recur for the left subtree
+    if (value < root->info) {
+        remove(root->left, value);
+    }
+ 
+    // if the given key is more than the root node, recur for the right subtree
+    else if (value > root->info) {
+        remove(root->right, value);
+    }
+ 
+    // key found
+    else {
+        // Case 1: node to be deleted has no children (it is a leaf node)
+        if (root->left == nullptr && root->right == nullptr)
+        {
+            // deallocate the memory and update root to null
+            delete root;
+            root = nullptr;
+        }
+ 
+        // Case 2: node to be deleted has two children
+        else if (root->left && root->right)
+        {
+            // find its inorder predecessor node
+            Node* predecessor = getPredecessorNode(root->info);
+ 
+            // copy value of the predecessor to the current node
+            root->info = predecessor->info;
+ 
+            // recursively delete the predecessor. Note that the
+            // predecessor will have at most one child (left child)
+            remove(root->left, predecessor->info);
+        }
+ 
+        // Case 3: node to be deleted has only one child
+        else {
+            // choose a child node
+            //Node* child = (root->left)? root->left: root->right;
+            Node* c = new Node;
+            if(root->left)
+            {
+              c = root->left;
+            }
+            else
+            {
+              c = root->right;
+            }
+            Node* n = root;
+ 
+            root = c;
+ 
+            // deallocate the memory
+            delete n;
+        }
+    }
+}
+void IntBST::remove(int value)
+{
+  remove(root , value);
+}
+
+
+
+/*
+bool IntBST::remove(int value){
+
+
+    if(root==nullptr)
+    {
+      return false;
+    }
+    
+    Node *n = getNodeFor(value , root);
+    if(n==nullptr)
+    {
+      delete n;
+      return false;
+    }
+    if(root->info == value && !root->left && !root->right)
+    {
+      root = nullptr;
+      delete n;
+      return true;
+    }
+
+
+    
+
+    Node* parent = n->parent;
+
+
+ 
+
+
+    if (n->left == nullptr && n->right == nullptr)
+    {
+
+        if (n->info != root->info)
+        {
+            if (n->info < parent->info) {
+                parent->left = nullptr;
+            }
+            else {
+                parent->right = nullptr;
+            }
+        }
+        else {
+            root = nullptr;
+        }
+      
+ 
+        // deallocate the memory
+        delete n;   
+        return true;// or delete curr;
+    }
+
+    else if (n->left && n->right)
+    {
+
+        Node* successor = getSuccessorNode(value);
+ 
+
+        int temp = successor->info;
+
+        bool b = remove(successor->info);
+ 
+
+        n->info = temp;
+        return true;
+    }
+ 
+    else {
+      if(n->info==root->info)
+      {
+        if(n->left)
+        {
+          root = root->left;
+        }
+        else
+        {
+          root = root->right;
+        }
+      }
+      else
+      {
+        if(n->left&&n->info<parent->info)
+        {
+          parent->left = n->left;
+          
+        }
+        else if(n->left &&n->info>parent->info)
+        {
+          parent->right = n->left;
+        }
+        else if(n->right &&n ->info < parent->info)
+        {
+          parent->left = n->right;
+        }
+        else
+        {
+          parent->right = n->right;
+        }
+      }
+      /*
+        Node* sub = new Node;
+        if(n->left)
+        {
+          sub = n->left;
+        }
+        else
+        {
+          sub = n->right;
+        }
+
+        if (n != root)
+        {
+            if (n->info < parent->info) {
+                parent->left = sub;
+            }
+            else {
+                parent->right = sub;
+            }
+        }
+ 
+
+        else {
+            root = sub;
+        }
+
+      
+ 
+        // deallocate the memory
+        
+        delete n;
+        return true;
+    }
 
 
 
 
-
-  return true;
 
     
 }
+*/

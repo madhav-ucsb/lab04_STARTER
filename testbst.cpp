@@ -1,3 +1,4 @@
+
 // testbst.cpp
 // Tests intbst.cpp for CS 24 lab
 
@@ -87,7 +88,17 @@ int main() {
 	cout << "  removing 64" << endl;
 	bst1.remove(64);
 	cout << "  removing 128" << endl;
+      
 	bst1.remove(128);
+  bst1.printInOrder();
+  bst1.remove(256);
+  bst1.remove(512);
+
+  bst1.remove(100);
+  bst1.remove(32);
+  bst1.remove(16);
+
+  
 	cout << "  contains 64? " <<
             (bst1.contains(64) ? "Y" : "N") << endl;
 	cout << "  contains 4? " <<

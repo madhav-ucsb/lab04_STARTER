@@ -14,11 +14,14 @@ class IntBST {
     // ctor, dtor, insert and one print method already done in intbst.cpp:
     IntBST();                   // constructor
     ~IntBST();                  // destructor
-    bool insert(int value);     // insert value; return false if duplicate
+    bool insert(int value);
+    bool empty();// insert value; return false if duplicate
     void printPreOrder() const; // prints tree data pre-order to cout
 
     // 8 METHODS YOU MUST IMPLEMENT in intbst.cpp:
     void printInOrder() const;       // print tree data in-order to cout
+    int min();
+    int max();
     void printPostOrder() const;     // print tree data post-order to cout
     int sum() const;                 // sum of all values
     int count() const;               // count of values
@@ -27,7 +30,8 @@ class IntBST {
     // THESE ARE HARDER! DO THESE LAST
     int getPredecessor(int value) const;       // returns the predecessor value of the given value or 0 if there is none
     int getSuccessor(int value) const;         // returns the successor value of the given value or 0 if there is none
-    bool remove(int value);                    // deletes the Node containing the given value from the tree
+    //bool remove(int value);         
+    void remove(int value);// deletes the Node containing the given value from the tree
 
  private:
 
@@ -42,18 +46,22 @@ class IntBST {
     Node *root;
 
     // recursive utility functions for use by public methods above
+    int min(Node* n);
+    int max(Node* n);
     Node* getNodeFor(int value, Node* n) const; // IMPLEMENT THIS FIRST: returns the node for a given value or NULL if none exists
     void clear(Node *n); // for destructor
     bool insert(int value, Node *n); // note overloading names for simplicity
     void printPreOrder(Node *n) const;
     void printInOrder(Node *n) const;
     void printPostOrder(Node *n) const;
+    void remove(Node* &root, int value);
     int sum(Node *n) const;
     int count(Node *n) const;
 
     // these should be used by getPredecessor and getSuccessor, and ONE of them should be used by remove
     Node* getSuccessorNode(int value) const;   // returns the Node containing the successor of the given value
-    Node* getPredecessorNode(int value) const; // returns the Node containing the predecessor of the given value 
+    Node* getPredecessorNode(int value) const;
+    // returns the Node containing the predecessor of the given value 
 };
 
 #endif
