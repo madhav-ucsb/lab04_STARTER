@@ -8,12 +8,12 @@
 
 using namespace std;
 
-class IntBST {
+class Cards {
 
  public:
     // ctor, dtor, insert and one print method already done in intbst.cpp:
-    IntBST();                   // constructor
-    ~IntBST();                  // destructor
+    Cards();                   // constructor
+    ~Cards();                  // destructor
     bool insert(int value);
     bool empty();// insert value; return false if duplicate
     void printPreOrder() const; // prints tree data pre-order to cout

@@ -6,7 +6,7 @@
 
 #include <fstream>
 
-#include "intbst.h"
+#include "cards.h"
 
 #include <vector>
 
@@ -128,7 +128,7 @@ string its(int card)
 
   
 }
-void play(IntBST& a , IntBST& b)
+void play(Cards& a , Cards& b)
 
 
 {
@@ -282,8 +282,8 @@ int main(int argc, char* argv[])
   ifstream bobopener;
 
   int cardNum;
-  IntBST a; 
-  IntBST b;
+  Cards a; 
+  Cards b;
   
 
   opener.open(aliceFile);
@@ -302,7 +302,6 @@ int main(int argc, char* argv[])
       
       
     }
-  a.printInOrder();
 
   bobopener.open(bobFile);
   getline(bobopener , card);
@@ -324,19 +323,18 @@ int main(int argc, char* argv[])
     }
 
   int minimum;
-
   minimum = b.max();
 
-  cout<<endl;
 
 
 
 
-
-  //play(a,b);
 
 
   play(a,b);
+
+
+  //play(a,b);
 
 
   

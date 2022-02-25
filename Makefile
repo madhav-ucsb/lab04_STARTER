@@ -11,18 +11,18 @@ all: ${BINARIES}
 tests: ${BINARIES}
 	./testbst
 	./game
-intbst: intbst.o
+cards: cards.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
 
-testbst: testbst.o intbst.o
+testbst: testbst.o cards.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
-game: game.o intbst.o
+game: game.o cards.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
-intbst.o: intbst.cpp intbst.h
-	${CXX} intbst.cpp -c
-testbst.o: testbst.cpp intbst.h 
+cards.o: cards.cpp cards.h
+	${CXX} cards.cpp -c
+testbst.o: testbst.cpp cards.h 
 	${CXX} testbst.cpp -c
-game.o: game.cpp intbst.h 
+game.o: game.cpp cards.h 
 	${CXX} game.cpp -c
 clean:
 	/bin/rm -f ${BINARIES} *.o
