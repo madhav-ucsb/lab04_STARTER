@@ -16,13 +16,13 @@ cards: cards.o
 
 testbst: testbst.o cards.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
-game: game.o cards.o
+game: main.o cards.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
 cards.o: cards.cpp cards.h
 	${CXX} cards.cpp -c
 testbst.o: testbst.cpp cards.h 
 	${CXX} testbst.cpp -c
-game.o: game.cpp cards.h 
-	${CXX} game.cpp -c
+main.o: main.cpp cards.h 
+	${CXX} main.cpp -c
 clean:
 	/bin/rm -f ${BINARIES} *.o
