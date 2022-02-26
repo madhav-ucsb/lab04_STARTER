@@ -9,6 +9,7 @@
 #include "cards.h"
 
 #include <vector>
+#include <algorithm>
 
 using std::cout;
 using namespace std;
@@ -230,6 +231,8 @@ void play(Cards& a , Cards& b)
   
   cout<<endl;
   cout<<"Alice's Cards:"<<endl;
+  reverse(vectb.begin() , vectb.end());
+  reverse(vecta.begin(), vecta.end());
   for (int x : vecta)
     {
       cout<<its(x)<<endl;
