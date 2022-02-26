@@ -44,7 +44,7 @@ int cardToInt(string card)
 
 
 
-  if(card.substr(card.length() -2 )=="10")
+  if(card.substr(card.length() -2 , card.length())=="10")
   {
     return 40 + num;
   }
@@ -137,10 +137,7 @@ void play(Cards& a , Cards& b)
 
   bool matched = false;
 
-  int lena = a.count();
 
-
-  int lenb = b.count();
   int curr;
 
   vector<int> vecta;
@@ -150,10 +147,10 @@ void play(Cards& a , Cards& b)
   int counter = 0;
 
   string card = "";
-  bool found_match = true;
 
 
-  while(found_match)
+
+  while(!a.empty()||!b.empty())
   {
 
     while(!matched && !a.empty()&&a.min()!=0&&a.max()<60)
@@ -162,7 +159,7 @@ void play(Cards& a , Cards& b)
         curr = a.min();
         if(b.contains(curr))
         {
-          found_match = true;
+
           
           a.remove(curr);
 
@@ -183,7 +180,7 @@ void play(Cards& a , Cards& b)
 
         }
         }
-    found_match = false;
+
         
     matched = false;
     
@@ -203,7 +200,6 @@ void play(Cards& a , Cards& b)
     
               cout<<"Bob picked matching card "<<card<<endl;
               matched = true;
-              found_match = true;
             }
             else
             {
@@ -322,8 +318,6 @@ int main(int argc, char* argv[])
       
     }
 
-  int minimum;
-  minimum = b.max();
 
 
 
