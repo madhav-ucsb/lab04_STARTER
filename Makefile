@@ -3,25 +3,25 @@ CXX = g++
 
 CXXFLAGS = -Wall -Wno-uninitialized
 
-BINARIES=testbst game
+BINARIES=test game
 
 
 all: ${BINARIES}
 
 tests: ${BINARIES}
-	./testbst
+	./test
 	./game
 cards: cards.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
 
-testbst: testbst.o cards.o
+test: tests.o cards.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
 game: main.o cards.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
 cards.o: cards.cpp cards.h
 	${CXX} cards.cpp -c
-testbst.o: testbst.cpp cards.h 
-	${CXX} testbst.cpp -c
+tests.o: tests.cpp cards.h 
+	${CXX} tests.cpp -c
 main.o: main.cpp cards.h 
 	${CXX} main.cpp -c
 clean:
