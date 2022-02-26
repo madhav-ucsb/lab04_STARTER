@@ -47,38 +47,38 @@ int cardToInt(string card)
 
   if(card.substr(card.length() -2 , card.length())=="10")
   {
-    return 40 + num;
+    return 10 + 15*num;
   }
 
   if (card.substr(card.length() -1 )=="j")
   {
-    return 44 + num;
+    return 11 + 15*num;
   }
   if (card.substr(card.length() -1 )=="q")
   {
-    return 48 + num;
+    return 12 + 15*num;
   }
   if (card.substr(card.length() -1 )=="k")
   {
-    return 52 + num;
+    return 13 + 15*num;
   }
   if (card.substr(card.length() -1 )=="a")
   {
-    return 56 + num;
+    return 1 + 15*num;
   }
   
 
   
-  return 4*stoi(card.substr(card.length()-1)) + num;
+  return stoi(card.substr(card.length()-1)) + 15*num;
 
   
 }
 
 string its(int card)
 {
-  int suit = card%4;
+  int suit = card/15;
 
-  int num = card/4;
+  int num = card%15;
 
   string s = "";
   string n = "";
@@ -118,7 +118,7 @@ string its(int card)
   {
     n="k";
   }
-  if (num==14)
+  if (num==1)
   {
     n="a";
   }
@@ -232,7 +232,7 @@ void play(Cards& a , Cards& b)
   cout<<endl;
   cout<<"Alice's Cards:"<<endl;
   reverse(vectb.begin() , vectb.end());
-  reverse(vecta.begin(), vecta.end());
+  //reverse(vecta.begin(), vecta.end());
   for (int x : vecta)
     {
       cout<<its(x)<<endl;
@@ -292,10 +292,13 @@ int main(int argc, char* argv[])
 
   while(!opener.fail())
     {
+      if(card.size()>2)
+      {
 
-      cardNum = cardToInt(card);
-
-      a.insert(cardNum);
+        cardNum = cardToInt(card);
+  
+        a.insert(cardNum);
+      }
 
       getline(opener,card);
       
@@ -311,10 +314,12 @@ int main(int argc, char* argv[])
     {
       getline(bobopener,card);
 
-
-      cardNum = cardToInt(card);
-
-      b.insert(cardNum);
+      if(card.size()>2)
+      {
+        cardNum = cardToInt(card);
+  
+        b.insert(cardNum);
+        }
 
       
       
