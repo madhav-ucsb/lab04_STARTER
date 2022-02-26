@@ -230,7 +230,7 @@ void play(Cards& a , Cards& b)
         }
   
   cout<<endl;
-  cout<<"Alice's Cards:"<<endl;
+  cout<<"Alice's cards:"<<endl;
   reverse(vectb.begin() , vectb.end());
   //reverse(vecta.begin(), vecta.end());
   for (int x : vecta)
@@ -244,7 +244,7 @@ void play(Cards& a , Cards& b)
       */
     }
   cout<<endl;
-  cout<<"Bob's Cards:"<<endl;
+  cout<<"Bob's cards:"<<endl;
   for(int y: vectb)
     {
 
